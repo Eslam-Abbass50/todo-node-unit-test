@@ -1,11 +1,9 @@
-const app=require("../index")
+const app=require("../../../index")
 const supertest= require("supertest")
 const request= supertest(app)
-const {deleteAllUsers} =require("../controllers/users")
+const { clearDatabase } = require("../../../db.connection")
 
-const {deleteAllTodos} =require("../controllers/todos")
-
-fdescribe("todos",()=>{
+describe("todos",()=>{
     let newTodo,newUser,token;
     
     beforeAll(async()=>{
@@ -29,7 +27,7 @@ fdescribe("todos",()=>{
         const res= await request.get("/todos").set("authorization",token)
         expect(res.status).toBe(200)
         expect(res.body.message).toContain("Couldn't find any todos")
-        console.log('res.body: ', res.body);
+        
     })
     it("post todo with no title xxx",async()=>{
         const res= await request.post("/todos").set("authorization",token)
