@@ -38,7 +38,4 @@ async function login(req, res) {
 
 }
 
-async function deleteAllUsers(){
-  return await usersModel.deleteMany()
-}
-module.exports = { saveUser, getAllUsers, login,deleteAllUsers }
+module.exports = { saveUser, getAllUsers, login }

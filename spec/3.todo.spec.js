@@ -49,8 +49,7 @@ fdescribe("todos",()=>{
         expect(res.body.userId).toBe(newTodo.userId)
     })
 
-    afterAll(async()=>{
-        await deleteAllUsers()
-        await deleteAllTodos()
+    afterAll(async () => {
+        await clearDatabase()
     })
 })

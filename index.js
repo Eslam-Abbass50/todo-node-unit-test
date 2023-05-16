@@ -6,7 +6,7 @@ var todosRoutes=require('./routes/todos')
 var usersRoutes=require('./routes/users')
 const app = express()
 
-require("./db.connection")
+require("./db.connection").connectToDatabase()
 
 //middleware
 app.use(express.json())

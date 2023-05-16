@@ -1,11 +1,12 @@
 {
-  "name": "node-js-day-2",
+  "name": "node-js-day-2-testing",
   "version": "1.0.0",
-  "description": "this is first node js project",
+  "description": "this is first node js testing project",
   "main": "index.js",
   "scripts": {
     "start": "SET SECRET=jkewhf57465dsfhghd57sdkjfj576sdjjk && nodemon index",
-    "test": "SET SECRET=jkewhf57465dsfhghd57sdkjfj576sdjjk && jasmine"
+    "test": "jasmine",
+    "test1": "SET SECRET=jkewhf57465dsfhghd57sdkjfj576sdjjk && jasmine"
   },
   "author": "mona soliman",
   "license": "ISC",
