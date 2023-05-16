@@ -1,13 +1,12 @@
 
 const express = require("express")
 const cors=require("cors")
-const mongoose=require("mongoose")
+
 var todosRoutes=require('./routes/todos')
 var usersRoutes=require('./routes/users')
 const app = express()
-mongoose.connect("mongodb://127.0.0.1:27017/itiMearn")
-.then(()=>console.log("db connected..."))
-.catch(err=>console.log(err))
+
+require("./db.connection")
 
 //middleware
 app.use(express.json())

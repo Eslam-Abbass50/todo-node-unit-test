@@ -21,7 +21,6 @@
   "devDependencies": {
     "jasmine": "^5.0.0",
     "jasmine-spec-reporter": "^7.0.0",
-    "mocha": "^10.2.0",
     "supertest": "^6.3.3"
   }
 }
