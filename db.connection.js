@@ -1,7 +1,7 @@
 const mongoose= require("mongoose")
 
 
-const URL="mongodb://127.0.0.1:27017/itiMearn"
+const URL="mongodb://127.0.0.1:27017/testMearn"
 
 
 /**
@@ -21,7 +21,6 @@ const connectToDatabase = async () => {
 const closeDatabase = async () => {
     await mongoose.connection.dropDatabase();
     await mongoose.connection.close();
-    await mongod.stop();
 }
 
 /**

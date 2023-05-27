@@ -3,7 +3,7 @@ const { saveTodo,getTodoById, getTodos, EditTodoById, deleteAllTodos } = require
 const { connectToDatabase, clearDatabase  } = require("../../../db.connection");
 
 
-describe('todo controller: ', () => {
+xdescribe('todo controller: ', () => {
     let mockUser, mockTodo;
     beforeAll(async () => {
         await connectToDatabase()

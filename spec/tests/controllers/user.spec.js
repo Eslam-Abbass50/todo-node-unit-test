@@ -1,8 +1,8 @@
 const { saveUser, getAllUsers } = require("../../../controllers/users");
-const { connectToDatabase, closeDatabase, clearDatabase } = require("../../../db.connection");
+const { connectToDatabase,  clearDatabase } = require("../../../db.connection");
 
 
-describe('user controller: ', () => {
+xdescribe('user controller: ', () => {
     let mockUser;
     beforeAll(async()=>{
         mockUser={

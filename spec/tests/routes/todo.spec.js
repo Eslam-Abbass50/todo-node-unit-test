@@ -1,19 +1,20 @@
 const app=require("../../../index")
 const supertest= require("supertest")
 const request= supertest(app)
-const { clearDatabase } = require("../../../db.connection")
+const { clearDatabase, connectToDatabase, closeDatabase } = require("../../../db.connection")
 
 describe("todos",()=>{
     let newTodo,newUser,token;
     
     beforeAll(async()=>{
+        await connectToDatabase()
         newTodo={
             title:"todo 1"
         }
         newUser={
             name:"sals 2",
             password:"1234" //must be not crypted
-        }
+        }        
         await request.post("/users").send(newUser)
         const response= await request.post("/users/login").send(newUser)
         token=response.body
@@ -49,5 +50,6 @@ describe("todos",()=>{
 
     afterAll(async () => {
         await clearDatabase()
+        await closeDatabase()
     })
 })

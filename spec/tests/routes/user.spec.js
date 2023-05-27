@@ -1,13 +1,16 @@
-const { clearDatabase } = require("../../../db.connection");
+const { clearDatabase, connectToDatabase } = require("../../../db.connection");
 const app = require("../../../index")
 const supertest = require("supertest")
 const request = supertest(app)
 
 describe("users", () => {
     let userToAdd;
+    beforeAll(async()=>{
+        await connectToDatabase()
+    })
     beforeEach(() => {
         userToAdd = {
-            name: "salsxxxxx",
+            name: "salsxx",
             password: "1234"
         }
     })
@@ -15,6 +18,7 @@ describe("users", () => {
     it("get all users 400", async () => {
         const res = await request.get("/users")
         expect(res.status).toBe(400)
+        expect(res.body.message).toBe("There is no users yet")
     })
     it("post user 400 password xx", async () => {
         userToAdd.password = "123" //wrong
@@ -44,12 +48,12 @@ describe("users", () => {
         expect(res.status).toBe(200)
         expect(token).toBeDefined()
     })
-    afterAll(async () => {
-        await clearDatabase()
-    })
     it("get all users 400", async () => {
         const res = await request.get("/users")
         expect(res.status).toBe(200)
         expect(res.body.length).toBe(1)
+    })
+    afterAll(async () => {
+        await clearDatabase()
     })
 })
