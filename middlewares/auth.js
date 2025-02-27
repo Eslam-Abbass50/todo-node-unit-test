@@ -1,7 +1,7 @@
 const jwt=require('jsonwebtoken')
  var {promisify} =require('util')
 const { APIError } = require('../utilities/errors')
-
+/** authentication */
 async function auth(req, res, next) {
   
   try{
