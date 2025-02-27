@@ -1,25 +1,24 @@
-var jwt = require("jsonwebtoken")
+const jwt=require('jsonwebtoken')
+ var {promisify} =require('util')
+const { APIError } = require('../utilities/errors')
 
+async function auth(req, res, next) {
+  
+  try{
+      if (!req.headers.authorization) {
+         next( new APIError(401, 'you have not access , please login first' ))
+      }
+      else{
+        var decoded = await promisify(jwt.verify)(req.headers.authorization,process.env.SECRET)
+        req.id=decoded.id
+    
+        next()
+      }
+    }catch(err){
 
-
-function auth(req, res, next) {
-    if (req.headers.authorization) {
-        var token = req.headers.authorization
-        jwt.verify(token, process.env.SECRET, function (err, decoded) {
-            if (err) {
-                res.status(403).json({ message: err.message })
-            } else {
-                // console.log("decoded",decoded.data)
-                req.user=decoded.data
-                next()
-            }
-        })
-
-    } else {
-        res.status(403).json({ message: 'you are not authenticated to access this api' })
+      next( err)
     }
-
+ 
 }
 
-
-module.exports={auth}
+module.exports = auth

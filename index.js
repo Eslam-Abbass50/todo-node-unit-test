@@ -1,47 +1,51 @@
+const express = require("express");
+const cors = require("cors");
+var todoRoutes = require("./routes/todo");
+var userRoutes = require("./routes/user");
+var todosModel = require("./models/todo");
+const { connectToDatabase } = require("./db.connection");
+require("dotenv").config();
+const port = 3333;
 
-const express = require("express")
-const cors=require("cors")
+var app = express();
 
-var todosRoutes=require('./routes/todos')
-var usersRoutes=require('./routes/users')
-const app = express()
+app.use(
+  cors({
+    origin: "*",
+  })
+);
+app.use(express.json());
+//handling routes
+app.use("/user", userRoutes);
+app.use("/todo", todoRoutes);
 
-// require("./db.connection").connectToDatabase()
-
-//middleware
-app.use(express.json())
-//cors
-app.use(cors())
-
-//custom middleware
-// app.use((req, res, next) => {
-
-//     console.log("request");
-//     next()
-
-
-// })
-
-//routes
-app.use('/todos', todosRoutes)
-app.use("/users", usersRoutes)
+app.get("/", async function (_req, res) {
+    var todos = await todosModel.find();
+    res.status(200).json({ data: todos });
+});
 
 
+//error handling middleware
+app.use((err, _req, res, _next) => {
+  const status = err.status || 500;
+  res.status(status).json({ message: err.message });
+});
 
-app.listen(3000, () => {
+//not found
+app.use("*", function (_req, res, _next) {
+  res.status(404).json({ message: "Not found" });
+});
 
-    console.log("server started listening successfully");
-})
+connectToDatabase()
+  .then(() => {
+    console.log("connected to DB");
+  })
+  .catch((err) => {
+    console.log(err);
+  });
 
-
-
-module.exports= app
-
-
-
-
-
-
-
+app.listen(port, () => {
+  console.log(`server listening successfully http://localhost:${port}`);
+});
 
 
